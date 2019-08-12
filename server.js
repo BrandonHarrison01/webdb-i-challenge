@@ -27,6 +27,20 @@ server.get('/api/accounts', (req, res) => {
 })
 
 
+// READ BY ID
+
+server.get('/api/accounts/:id', (req, res) => {
+    db('accounts')
+        .where({ id: req.params.id })
+        .first()
+        .then(account => {
+            res.status(200).json(account)
+        })
+        .catch(error => {
+            res.status(500).json({ error: 'there was an error getting account' })
+        })
+})
+
 // UPDATE
 
 server.put('/api/accounts/:id', (req, res) => {
